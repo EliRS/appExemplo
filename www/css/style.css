@@ -1,6 +1,9 @@
 /**/
 .display{
   height:90px;
-  font-size:70px;
+  font-size:50px;
+}
+.btn{
+  margin-top: 10px;
 }
 
