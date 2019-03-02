@@ -7,6 +7,8 @@
 });*/
 var pegar;
 var operacao = "";
+var texto = "";
+var texto1 = "";
 
 // botoes 1 ao 9
 $(document).on('click','.botao',function(){
@@ -23,7 +25,8 @@ $(document).on('click','.botao',function(){
 $(document).on('click','#ce',function(){
   $("#display").val("");
   operacao = "";
-  pegar = 0;
+  pegar = null;
+  texto = "";
 });
 
 //btn virgula
@@ -42,8 +45,18 @@ $(document).on('click','#operadores',function(){
   if($("#display").val().length == 1){
     $("#vir").attr("disabled", false);
   }
-  valor = parseFloat($("#display").val());
-  $("#display").val("");
+  if(pegar == null){
+    valor = parseFloat($("#display").val());
+    texto = $("#display").val() + $(this).val();
+    $("#display").val(texto);
+  }else{
+    texto1 = $("#display").val();
+    valor = parseFloat($("#display").val().slice(texto.length,texto1.length));
+    texto = $("#display").val() + $(this).val();
+    $("#display").val(texto);
+  }
+  
+  
   if(operacao == "+"){
     pegar = pegar + valor;
   }else if(operacao == "-"){
@@ -53,7 +66,7 @@ $(document).on('click','#operadores',function(){
   }else if(operacao == "/"){
     pegar = pegar / valor;
   }else{
-    pegar = valor
+    pegar = valor;
   }
 
   // verificar qual é o operador
@@ -65,7 +78,8 @@ $(document).on('click','#operadores',function(){
 
 // btn igual
 $(document).on('click','#igual',function(){
-  valor = parseFloat($("#display").val());
+  texto1 = $("#display").val();
+  valor = parseFloat($("#display").val().slice(texto.length,texto1.length));
   if(operacao == "+"){
     pegar = pegar + valor;
   }else if(operacao == "-"){
@@ -77,7 +91,8 @@ $(document).on('click','#igual',function(){
   }
   $("#display").val(pegar);
   operacao = "";
-  pegar = 0;
+  pegar = null;
+  texto = "";
 });
 
 
